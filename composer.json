@@ -1,17 +1,17 @@
 {
-    "name": "dbemfica/phppimaco",
-    "description": "Lib para geração de Etiquetas PIMACO",
+    "name": "williamla/phppimaco",
+    "description": "Lib para geração de Etiquetas PIMACO, atualizado para PHP 8.1",
     "keywords": ["PIMACO", "etiquetas","tags","hang tags"],
     "license": "MIT",
     "authors": [
         {
-            "name": "Diogo Bemfica",
-            "email": "diogo.fragabemfica@gmail.com"
+            "name": "Willian Leite Araújo",
+            "email": "william.bh@gmail.com"
         }
     ],
     "autoload": {
         "psr-4": {
-            "Proner\\PhpPimaco\\": "src/"
+            "Williamla\\PhpPimaco\\": "src/"
         }
     },
     "require": {
@@ -23,7 +23,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Proner\\PhpPimacoTest\\": "tests/"
+            "Williamla\\PhpPimacoTest\\": "tests/"
         }
     },
     "require-dev": {

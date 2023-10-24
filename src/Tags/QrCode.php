@@ -2,7 +2,16 @@
 declare(strict_types = 1);
 namespace Proner\PhpPimaco\Tags;
 
-use Endroid\QrCode\ErrorCorrectionLevel;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
+use Endroid\QrCode\Builder\Builder;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\QrCode as endQrCode;
+use Endroid\QrCode\Label\LabelAlignment;
+use Endroid\QrCode\Label\Label;
+use Endroid\QrCode\Label\Font\NotoSans;
+use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
+use Endroid\QrCode\Writer\PngWriter;
+use Endroid\QrCode\Color\Color;
 
 class QrCode
 {
@@ -106,13 +115,36 @@ class QrCode
      */
     public function render()
     {
-        $qrcode = new \Endroid\QrCode\QrCode();
-        $qrcode->setErrorCorrectionLevel(ErrorCorrectionLevel::HIGH);
-        $qrcode->setEncoding('UTF-8');
-        $qrcode->setForegroundColor(array('r' => 0, 'g' => 0, 'b' => 0, 'a' => 0));
-        $qrcode->setBackgroundColor(array('r' => 255, 'g' => 255, 'b' => 255, 'a' => 0));
-        $qrcode->setWriterByName('png');
-        $qrcode->setText($this->content);
+//        $qrcode = new \Endroid\QrCode\QrCode('');
+//        $qrcode->setErrorCorrectionLevel(new ErrorCorrectionLevelHigh());
+//        $qrcode->setEncoding(new \Endroid\QrCode\Encoding\Encoding('UTF-8'));
+//        $qrcode->setForegroundColor(new \Endroid\QrCode\Color\Color(0, 0, 0));
+//        $qrcode->setBackgroundColor(new \Endroid\QrCode\Color\Color(255, 255, 0));
+        //$qrcode->setWriterByName('png');
+//        $qrcode->setText($this->content);
+
+        $writer = new PngWriter();
+
+        // Create QR code
+        $qrCode = endQrCode::create($this->content)
+            ->setEncoding(new Encoding('UTF-8'))
+            ->setErrorCorrectionLevel(new ErrorCorrectionLevelHigh)
+            ->setSize(300)
+            ->setMargin(10)
+            ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin)
+            ->setForegroundColor(new Color(0, 0, 0))
+            ->setBackgroundColor(new Color(255, 255, 255));
+
+        // Create generic logo
+        $logo = null;
+        //Logo::create(__DIR__.'/assets/symfony.png')
+        //    ->setResizeToWidth(50)
+        //    ->setPunchoutBackground(true)
+       // ;
+
+        // Create generic label
+        $label = Label::create('Label')
+            ->setTextColor(new Color(255, 0, 0));
 
         if ($this->br === null) {
             if ($this->align == 'left') {
@@ -127,27 +159,31 @@ class QrCode
         }
 
         if (!empty($this->size)) {
-            $qrcode->setSize($this->size);
+            $qrCode->setSize($this->size);
         }
 
         if (!empty($this->label)) {
-            $qrcode->setLabel($this->label);
+            $qrCode->setData($this->label);
         }
 
-        if (!empty($this->labelFontSize)) {
-            $qrcode->setLabelFontSize($this->labelFontSize);
-        }
+        //if (!empty($this->labelFontSize)) {
+        //    $qrCode->setLabelFontSize($this->labelFontSize);
+       // }
 
-        if (!empty($this->padding)) {
-            $qrcode->setPadding($this->padding);
-        }
+        //if (!empty($this->padding)) {
+        //    $qrcode->setPadding($this->padding);
+       // }
 
         if (!empty($styles)) {
             $style = "style='".implode(";", $styles)."'";
         } else {
             $style = "";
         }
+        $result = $writer->write($qrCode, $logo, null);
 
-        return "<img ".$style." src='{$qrcode->writeDataUri()}'>".$this->br;
+        // Validate the result
+        //$writer->validateResult($result, 'Life is too short to be generating QR codes');
+
+        return "<img ".$style." src='{$result->getDataUri()}'>".$this->br;
     }
 }
