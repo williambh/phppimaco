@@ -19,12 +19,23 @@ O PHP PIMACO é um pacote para geração de etiquetas usando a biblioteca <a hre
 
 Para fazer instalação do PHPPimaco utilize o composer
 ```php
-composer require williamla/phppimaco
+composer require williambh/phppimaco
 ```
 
-Caso você precise usar o MPDF na versão 6 use o comando
-```php
-composer require williamla/phppimaco:"^1.0"
+Pode também usar diretamente via código do github, atualizando seu arquivo composer para usar esse repositório como fonte: 
+
+```json
+{
+    "name": "seuhub/seuprojeto",
+    "type": "project",
+    "repositories": [
+        {
+          "type": "vcs",
+          "url": "https://github.com/williambh/phppimaco.git"
+        }
+    ],
+    "require": {
+}
 ```
 
 ## Primeira impressão
