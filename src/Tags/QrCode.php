@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace Proner\PhpPimaco\Tags;
+namespace Williamla\PhpPimaco\Tags;
 
 use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
 use Endroid\QrCode\Builder\Builder;

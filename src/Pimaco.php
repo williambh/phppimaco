@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace Proner\PhpPimaco;
+namespace Williamla\PhpPimaco;
 
 use Mpdf\Mpdf;
 

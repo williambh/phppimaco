@@ -1,6 +1,6 @@
 <?php
 declare(strict_types = 1);
-namespace Proner\PhpPimaco\Tags;
+namespace Williamla\PhpPimaco\Tags;
 
 use phpDocumentor\Reflection\Types\Void_;
 use \Picqer\Barcode\BarcodeGeneratorPNG;
